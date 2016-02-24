@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>01 - Introduction to Angular</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.2/angular.min.js"></script>
+</head>
+<!--
+    Purpose:
+        Introduction to angular modules and controllers
+-->
+
+<!-- The body tag has a reference to the main application: "myApp" in the ng-app attribute -->
+<!-- The body tag has a reference to the only controller: "introController" in the ng-app attribute -->
+<body 
+      data-ng-app="myApp" 
+      data-ng-controller="introController">
+
+    <!-- display the value of the greeting property of the controller's view model -->
+    <span>{{greeting}}</span>
+
+    <script type="text/javascript">
+        //set up the app from which all other constructs will hang
+        var myApp = angular.module('myApp',[]);
+
+        //set up the primary controller, inject the $scope default view model
+        myApp.controller('introController', function ($scope) {
+            //add a greeting property we can reference in the HTML
+            $scope.greeting = 'Hello, World!';
+        });
+    </script>
+</body>
+</html>

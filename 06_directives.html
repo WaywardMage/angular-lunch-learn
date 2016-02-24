@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>06 - Directives</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.2/angular.min.js"></script>
+    <style type="text/css">
+        .person {
+            width: 20em;
+            border-radius: 5px;
+            border: 1px solid black;
+            margin: auto;
+            text-align: center;
+            padding: 1em;
+            background-color: #d3c4a9;
+            display: inline-block;
+        }
+
+        .btn {
+            background-color: #c43c0d;
+            color: white;
+            border-radius: inherit;
+            border: none;
+            font-size: inherit;
+            padding: .66em 1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<!-- 
+    Purpose:
+        Introduction to directives by creating a directive to display the
+        users' information in a nice format.
+-->
+<body 
+      data-ng-app="myApp"
+      data-ng-controller="teamController">
+
+    <div>
+        <h3>{{firstname}} {{lastname}}</h3>
+    </div>
+    <h3>Team</h3>
+    <hr/>
+    <!-- note the use of ng-cloak here to prevent the controls from showing until the digest cycle runs -->
+    <ul >
+        <team-member person="person" data-ng-repeat="person in team"></team-member>
+    </ul>
+
+    <script type="text/javascript">
+        var myApp = angular.module("myApp",[]);
+
+        myApp
+        .controller("teamController", function ($scope, listService) {
+            //add a name property
+            $scope.firstname = "Michael";
+            $scope.lastname = "Thornberry"
+            //default value for the project manager
+            $scope.projectManager = "";
+            //fetch the team members from the listService service.
+            //  the service returns a promise, so we handle the ".then()" callback
+            listService.getTeam().then(function (users) {
+                //assign the team from the users
+                $scope.team = users;
+            });
+        }).directive("teamMember", function () {
+            return {
+                restrict: "E", // this directive is an Element directive
+                scope: {
+                    person: "=" //attach the scope so we can fetch the value from the controller
+                },
+                template: '' // could also specify a file path for the template
+                    + '<div class="person">'
+                    + '  <h3 class="name">{{person.name}}</h3>'
+                    + '  <p class="email">{{person.email}}</p>'
+                    + '  <button class="btn">More Info</button>'
+                    + '</div>'
+                
+                //link: function (scope, element, attributes) {
+                //    element.find('button').bind('click', function () {
+                //        if (scope.contact == scope.contacts[scope.contacts.length - 1]) {
+                //            scope.contact = scope.contacts[0];
+                //        } else {
+                //            scope.contact = scope.contacts[scope.contacts.indexOf(scope.contact) + 1];
+                //        }
+                //    });
+                //}
+
+            }
+        })
+        //note: we're injecting the $http service here so we can
+        //  load real data from a web service.
+        .factory("listService", function ($http) {
+            return {
+                getTeam: function () {
+                    //fetch some fake users from JSONPlaceHolder and return the promise
+                    return $http.get("http://jsonplaceholder.typicode.com/users").then(function (response) {
+                        return response.data;
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
