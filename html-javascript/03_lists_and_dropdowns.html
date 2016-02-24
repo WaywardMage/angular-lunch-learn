@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>03 - Lists and Dropdowns</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.2/angular.min.js"></script>
+</head>
+<!--
+    Purpose:
+        Lists and two-way binding to dropdowns
+-->
+
+<body 
+      data-ng-app="myApp"
+      data-ng-controller="teamController">
+
+    <div>
+        <h3>{{firstname}} {{lastname}}</h3>
+    </div>
+    <h3>Team</h3>
+    <hr/>
+    <ul>
+        <li data-ng-repeat="person in team">{{person.name}}</li>
+    </ul>
+    <label>Project Manager:</label>
+    <select data-ng-model="projectManager" data-ng-options="person.name for person in team"></select>
+    <!-- show binding result -->
+    <label>You selected {{projectManager}}</label>
+
+    <script type="text/javascript">
+        //set up the app from which all other constructs will hang
+        var myApp = angular.module("myApp",[]);
+
+        myApp
+        .controller("teamController", function ($scope) {
+            //add a name property
+            $scope.firstname = "Michael";
+            $scope.lastname = "Thornberry"
+            //default value for the project manager
+            $scope.projectManager = "";
+            $scope.team = [
+                { name: "David Galonia"},
+                { name: "Dan Murphy" },
+                { name: "Mike Hurd" },
+                { name: "Jason Still" },
+                { name: "Lamont Adams" },
+                { name: "Chris Staley" },
+                { name: "Sunny Gulati" },
+                { name: "Doug Compton" },
+                { name: "Steve Anderson" }
+            ]
+        });
+    </script>
+</body>
+</html>
