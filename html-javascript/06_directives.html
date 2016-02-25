@@ -45,6 +45,14 @@
         <team-member person="person" data-ng-repeat="person in team"></team-member>
     </ul>
 
+    <script type="text/ng-template" id="teamMember.html" class="ng-cloak">
+        <div class="person">
+            <h3 class="name">{{person.name}}</h3>
+            <p class="email">{{person.email}}</p>
+            <button class="btn">More Info</button>
+        </div>
+    </script>
+
     <script type="text/javascript">
         var myApp = angular.module("myApp",[]);
 
@@ -67,23 +75,13 @@
                 scope: {
                     person: "=" //attach the scope so we can fetch the value from the controller
                 },
-                template: '' // could also specify a file path for the template
-                    + '<div class="person">'
-                    + '  <h3 class="name">{{person.name}}</h3>'
-                    + '  <p class="email">{{person.email}}</p>'
-                    + '  <button class="btn">More Info</button>'
-                    + '</div>'
-                
-                //link: function (scope, element, attributes) {
-                //    element.find('button').bind('click', function () {
-                //        if (scope.contact == scope.contacts[scope.contacts.length - 1]) {
-                //            scope.contact = scope.contacts[0];
-                //        } else {
-                //            scope.contact = scope.contacts[scope.contacts.indexOf(scope.contact) + 1];
-                //        }
-                //    });
-                //}
-
+                //template: "<h3>{{person.name}} ({{person.email}}</h3><br/>" // use this to specify the template directly
+                templateUrl: "teamMember.html" // could also specify a file path for the template
+                    //+ '<div class="person">'
+                    //+ '  <h3 class="name">{{person.name}}</h3>'
+                    //+ '  <p class="email">{{person.email}}</p>'
+                    //+ '  <button class="btn">More Info</button>'
+                    //+ '</div>'
             }
         })
         //note: we're injecting the $http service here so we can
