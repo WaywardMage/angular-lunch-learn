@@ -48,7 +48,9 @@
             return {
                 getTeam: function () {
                     //fetch some fake users from JSONPlaceHolder and return the promise
+                    //NOTE: Browsers cache GET, so you may want to POST your gets
                     return $http.get("http://jsonplaceholder.typicode.com/users").then(function (response) {
+                        debugger;
                         return response.data;
                     });
                 }

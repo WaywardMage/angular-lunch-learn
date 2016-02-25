@@ -69,7 +69,8 @@
                 //assign the team from the users
                 $scope.team = users;
             });
-        }).directive("teamMember", function () {
+        })
+        .directive("teamMember", function () {
             return {
                 restrict: "E", // this directive is an Element directive
                 scope: {

@@ -13,6 +13,7 @@ namespace MvcAngular.Controllers
                 return useAngular == "true";
             }
         }
+
         public ActionResult Index()
         {
             if (useAngular)
@@ -27,7 +28,14 @@ namespace MvcAngular.Controllers
 
         public ActionResult Details(int id)
         {
-            return View("Details", PersonModel.GetPerson(id));
+            if (useAngular)
+            {
+                return View("ngDetails", PersonModel.GetPerson(id));
+            }
+            else
+            {
+                return View("Details", PersonModel.GetPerson(id));
+            }
         }
 
         public ActionResult Create()

@@ -24,7 +24,7 @@
     <label>Project Manager:</label>
     <select data-ng-model="projectManager" data-ng-options="person.name for person in team"></select>
     <!-- show binding result -->
-    <label>You selected {{projectManager}}</label>
+    <label>You selected {{projectManager.name}}</label>
 
     <script type="text/javascript">
         //set up the app from which all other constructs will hang

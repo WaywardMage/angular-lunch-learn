@@ -23,10 +23,13 @@
         <li data-ng-repeat="person in team">{{person.name}}</li>
     </ul>
     <label>Project Manager:</label>
-    <select data-ng-model="projectManager" data-ng-options="person.name for person in team" />
+    <select data-ng-model="projectManager" data-ng-options="person.name for person in team"></select>
+
+    <!-- show binding result -->
+    <label>You selected {{projectManager.name}}</label>
 
     <script type="text/javascript">
-        var myApp = angular.module("myApp",[]);
+        var myApp = angular.module("myApp", []);
 
         myApp
         .controller("teamController", function ($scope, listService) {
@@ -43,7 +46,7 @@
             return {
                 getTeam: function () {
                     return [
-                        { name: "David Galonia"},
+                        { name: "David Galonia" },
                         { name: "Dan Murphy" },
                         { name: "Mike Hurd" },
                         { name: "Jason Still" },

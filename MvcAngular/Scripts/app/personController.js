@@ -15,10 +15,15 @@
 .controller("personJsonController", function ($scope, $location, personService) {
     $scope.person = window.person;
     $scope.savePerson = function () {
+        var loc = $location;
+        var useAngular = false;
+        if (loc.search().useAngular) {
+            useAngular = true;
+        }
         personService.savePerson(person).then(function (response) {
             if (response.success) {
                 alert("Saved!");
-                window.location.href = "/Person";
+                window.location.href = "/Person" + (useAngular ? "?useAngular=true" : "");
             } else {
                 alert("Failed: " + response.errorMessage);
             }

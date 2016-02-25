@@ -1,9 +1,11 @@
-﻿@using Newtonsoft.Json;
+﻿@using MvcAngular.Controllers
+@using Newtonsoft.Json;
 
 @model MvcAngular.Models.PersonModel
 
 @{
     ViewBag.Title = "Edit";
+    var useAngular = ((PersonController)ViewContext.Controller).useAngular;
 }
 
 @section head {
@@ -13,12 +15,12 @@
     <script src="~/Scripts/app/personController.js"></script>
     <script src="~/Scripts/app/personService.js"></script>
 }
-<h2>Edit</h2>
 <script type="text/javascript">
     //Dirt-simple method, simply output the model to the page and we'll pick it up on the angular side.
     @Html.Raw("var person = " + @JsonConvert.SerializeObject(Model, Formatting.Indented));
-
 </script>
+
+<h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
@@ -84,8 +86,8 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div data-ng-app="myApp" data-ng-controller="personJsonController">
+    <a href="/Person@(useAngular ? "?useAngular=true" : string.Empty)">Back to List</a>
 </div>
 
 @section Scripts {

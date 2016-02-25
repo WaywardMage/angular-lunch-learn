@@ -1,0 +1,74 @@
+﻿@using MvcAngular.Controllers
+@using Newtonsoft.Json
+
+@model MvcAngular.Models.PersonModel
+
+@{
+    ViewBag.Title = "Details";
+    var useAngular = ((PersonController)ViewContext.Controller).useAngular;
+}
+
+@section head {
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/Scripts/app/app.js"></script>
+    <script src="~/Scripts/app/personController.js"></script>
+    <script src="~/Scripts/app/personService.js"></script>
+}
+<script type="text/javascript">
+    //Dirt-simple method, simply output the model to the page and we'll pick it up on the angular side.
+    @Html.Raw("var person = " + @JsonConvert.SerializeObject(Model, Formatting.Indented));
+</script>
+
+<h2>Details</h2>
+
+<div>
+    <h4>PersonModel</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Website)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+
+    </dl>
+</div>
+<div data-ng-app="myApp" data-ng-controller="personJsonController">
+    <a href="/Person/Edit/{{person.id}}@(useAngular ? "?useAngular=true" : string.Empty)">Edit</a> |
+    <a href="/Person@(useAngular ? "?useAngular=true" : string.Empty)">Back to List</a>
+</div>
